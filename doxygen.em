@@ -251,11 +251,11 @@ macro AddFileHeader()
 
     sz = GetFileName(GetBufName(hbuf))
     ln=0 
-    InsBufLine( hbuf, ln,"/*! \\file    : @sz@" )
+    InsBufLine( hbuf, ln,"/*! \\file @sz@" )
     ln=ln+1
     InsBufLine( hbuf, ln, " * \\brief It's a @sz@ file" )
     ln=ln+1
-    InsBufLine( hbuf, ln, " * " )
+    InsBufLine( hbuf, ln, " * \\author @szMyName@" )
     ln=ln+1
     InsBufLine( hbuf, ln, " * Copyright (c) 2011-2020  co. Ltd. All rights reserved" )
     ln=ln+1
@@ -312,7 +312,11 @@ macro AddFileHeader()
         ln=ln+1
         InsBufLine( hbuf, ln, "" )        
     }
-          
+
+    ln = ln + 1
+    InsBufLine(hbuf, ln,"/* Includes ------------------------------------------------------------------*/")
+
+    
     ln=ln+1
     InsBufLine( hbuf, ln, "/*! \\addtogroup @szModule@" )
     ln=ln+1
@@ -321,6 +325,36 @@ macro AddFileHeader()
     InsBufLine( hbuf, ln, " * \@{" )
     ln=ln+1
     InsBufLine( hbuf, ln, " */" )
+
+	if("h"!=GetFileNameExt(GetBufName(hbuf))
+	{
+	    ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Private typedef -----------------------------------------------------------*/")
+	    ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Private define ------------------------------------------------------------*/")
+	    ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Private macro -------------------------------------------------------------*/")
+	    ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Private variables ---------------------------------------------------------*/")
+	    ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Private function prototypes -----------------------------------------------*/")
+	    ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Private functions ---------------------------------------------------------*/")
+	    ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Public functions ----------------------------------------------------------*/")
+    } else
+    {
+    	ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Exported types ------------------------------------------------------------*/")
+    	ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Exported constants --------------------------------------------------------*/")
+    	ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Exported macros ------------------------------------------------------------*/")
+    	ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Private macros ------------------------------------------------------------*/")
+    	ln = ln + 1
+	    InsBufLine(hbuf, ln,"/* Exported functions ------------------------------------------------------- */")
+    }
     
     ln =ln+2
     InsBufLine( hbuf, ln, "/*! \@} */" )
