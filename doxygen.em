@@ -7,8 +7,6 @@
   */
 macro AddVarUp()
 {
-    // Get a handle to the current file buffer and the name
-    // and location of the current symbol where the cursor is.
     hbuf = GetCurrentBuf()
 
     if( hbuf == hNil )
@@ -17,15 +15,7 @@ macro AddVarUp()
     }
 
     ln = GetBufLnCur( hbuf )
-    tmp = GetBufLine(hbuf,ln)
-    DelBufLine (hbuf, ln)
-    tmp = cat( tmp, "/**  */" )
-    
-    InsBufLine( hbuf, ln , tmp )
-
-    
-    // put the insertion point inside the header comment
-    SetBufIns( hbuf, ln , strlen(tmp)-3 )  
+    InsBufLine( hbuf, ln, "/** */" ) 
 }
 
 /** @brief    AddVarRight
@@ -62,37 +52,6 @@ macro AddVarRight()
   * @return  
   */
 macro AddFuncHeader()
-{
-    // Get a handle to the current file buffer and the name
-    // and location of the current symbol where the cursor is.
-    hbuf = GetCurrentBuf()
-
-    if( hbuf == hNil )
-    {
-        return 1
-    }
-
-    ln = GetBufLnCur( hbuf )
-
-    InsBufLine( hbuf, ln + 0, "/**" )
-    InsBufLine( hbuf, ln + 1, "  * \brief " )
-    InsBufLine( hbuf, ln + 2, "  *" )
-    InsBufLine( hbuf, ln + 3, "  * \param " )
-    InsBufLine( hbuf, ln + 4, "  *" )
-    InsBufLine( hbuf, ln + 5, "  * \return " )
-    InsBufLine( hbuf, ln + 6, "  */" )
-    
-    // put the insertion point inside the header comment
-    SetBufIns( hbuf, ln + 0, 50 )
-    
-}
-
-/** @brief    AddFuncHeaderAutoGenerate
-  * @param[in]  
-  * @param[out]  
-  * @return  
-  */
-macro AddFuncHeaderAutoGenerate()
 {
     func_str = ""
     func_ln = 0
